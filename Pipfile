@@ -1,0 +1,19 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+# Streamlit includes numpy, pandas, requests, and many other packages.
+# Full list: https://github.com/streamlit/streamlit/blob/develop/lib/setup.py
+streamlit = "~=1.21"
+rcssmin = "==1.1.1"
+openpyxl = "*"
+bokeh = "==2.4.3"
+shapely = "*"
+scipy = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.11"
