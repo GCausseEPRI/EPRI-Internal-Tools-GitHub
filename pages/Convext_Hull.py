@@ -50,8 +50,8 @@ def plot(df, x_column, y_column, ratio, holes):
     x, y = shapely.concave_hull(poly, ratio=ratio, allow_holes=holes).exterior.xy
 
     p = figure(
-		# x_axis_label='Time from Beginning of Cold Start',
-		# y_axis_label=plot_column,
+		x_axis_label=x_column,
+		y_axis_label=y_column,
 		aspect_ratio = 17.5 / 8,
 		sizing_mode='scale_width',
 		output_backend='webgl'
@@ -71,6 +71,16 @@ def plot(df, x_column, y_column, ratio, holes):
     )
 
     st.bokeh_chart(p)
+    # st.write(type(x))
+    # st.write(x)
+    hull_df = pd.DataFrame({'Hull X Coordinates' : x, 'Hull Y Coordinates': y})
+    # st.write(dff)
+    st.download_button(
+        label='Download Hull Coordinates',
+        data=hull_df.to_csv(index=False).encode('utf-8'),
+        file_name='Hull Coordinates.csv',
+        mime='text/csv'
+    )
 
 def main():
     st.header('Convex Hull Graphing Tool')
