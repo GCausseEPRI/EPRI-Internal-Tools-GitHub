@@ -41,13 +41,13 @@ def get_plot_columns(df: pd.DataFrame) -> (str, str):
 
     return x_column, y_column
 
-def plot(df, x_column, y_column):
+def plot(df, x_column, y_column, ratio, holes):
     points = df[[x_column, y_column]].to_numpy()
     # st.write(points)
     # hull = ConvexHull(points)
     coords = list(map(tuple, np.asarray(points)))
     poly = Polygon(coords)
-    x, y = shapely.concave_hull(poly, ratio=0.000001, allow_holes=True).exterior.xy
+    x, y = shapely.concave_hull(poly, ratio=ratio, allow_holes=holes).exterior.xy
 
     p = figure(
 		# x_axis_label='Time from Beginning of Cold Start',
@@ -89,8 +89,20 @@ def main():
         # st.write(df.head())
         x_column, y_column = get_plot_columns(df)
         # st.write(x_column, y_column)
+        sensitivity = st.number_input(
+            label='Sensitivity level',
+            min_value=0.0,
+            max_value=1.0,
+            value=0.1,
+            format='%.4f'
+
+        )
+        holes = st.checkbox(
+            label='Allow holes?',
+            value=False
+        )
         try:
-            plot(df, x_column, y_column)
+            plot(df, x_column, y_column, sensitivity, holes)
         except:
             st.warning("We're sorry, something went wrong. Please make sure your data is clean")
     else:
