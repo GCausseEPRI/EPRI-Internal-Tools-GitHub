@@ -93,7 +93,7 @@ def main():
             label='Sensitivity level',
             min_value=0.0,
             max_value=1.0,
-            value=0.1,
+            value=0.01,
             format='%.4f'
 
         )
