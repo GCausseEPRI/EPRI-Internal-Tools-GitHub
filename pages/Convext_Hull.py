@@ -89,7 +89,10 @@ def main():
         # st.write(df.head())
         x_column, y_column = get_plot_columns(df)
         # st.write(x_column, y_column)
-        plot(df, x_column, y_column)
+        try:
+            plot(df, x_column, y_column)
+        except:
+            st.warning("We're sorry, something went wrong. Please make sure your data is clean")
     else:
         st.info('Please upload some data to get started')
 
